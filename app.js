@@ -20,6 +20,7 @@ document.querySelectorAll('.nav-link').forEach(link => {
 });
 
 // Geometry Dash mini‑game
+// (already initialized earlier)
 (() => {
   const canvas = document.getElementById('gameCanvas');
   if (!canvas) return;
@@ -163,8 +164,109 @@ document.querySelectorAll('.nav-link').forEach(link => {
 })();
 
 // Gacha system
+// Ensure button clicks are logged for debugging
+// Add listeners for Tools Hub buttons
+// Timer
+const startBtn = document.getElementById('startTimer');
+if (startBtn) {
+  startBtn.addEventListener('click', () => {
+    const seconds = parseInt(document.getElementById('timerInput').value, 10);
+    if (isNaN(seconds) || seconds <= 0) return;
+    const display = document.getElementById('timerDisplay');
+    let remaining = seconds;
+    display.textContent = `${remaining}s`;
+    const interval = setInterval(() => {
+      remaining--;
+      if (remaining <= 0) {
+        clearInterval(interval);
+        display.textContent = 'Done!';
+        sendNTFY('Timer', 'Timer finished');
+      } else {
+        display.textContent = `${remaining}s`;
+      }
+    }, 1000);
+  });
+}
+// Click Counter
+const clickBtn = document.getElementById('clickBtn');
+if (clickBtn) {
+  clickBtn.addEventListener('click', () => {
+    const countEl = document.getElementById('clickCount');
+    let cnt = parseInt(countEl.textContent, 10) || 0;
+    cnt++;
+    countEl.textContent = cnt;
+    sendNTFY('Click', `Clicked ${cnt} times`);
+  });
+}
+// Calculator
+const calcBtn = document.getElementById('calcEval');
+if (calcBtn) {
+  calcBtn.addEventListener('click', () => {
+    const expr = document.getElementById('calcInput').value;
+    try {
+      // eslint-disable-next-line no-eval
+      const result = eval(expr);
+      document.getElementById('calcResult').textContent = `= ${result}`;
+      sendNTFY('Calculator', `${expr} = ${result}`);
+    } catch (e) {
+      document.getElementById('calcResult').textContent = 'Error';
+    }
+  });
+}
+
+// Ensure button clicks are logged for debugging
+// Add listeners for Tools Hub buttons
+// Timer
+const startBtn = document.getElementById('startTimer');
+if (startBtn) {
+  startBtn.addEventListener('click', () => {
+    const seconds = parseInt(document.getElementById('timerInput').value, 10);
+    if (isNaN(seconds) || seconds <= 0) return;
+    const display = document.getElementById('timerDisplay');
+    let remaining = seconds;
+    display.textContent = `${remaining}s`;
+    const interval = setInterval(() => {
+      remaining--;
+      if (remaining <= 0) {
+        clearInterval(interval);
+        display.textContent = 'Done!';
+        sendNTFY('Timer', 'Timer finished');
+      } else {
+        display.textContent = `${remaining}s`;
+      }
+    }, 1000);
+  });
+}
+// Click Counter
+const clickBtn = document.getElementById('clickBtn');
+if (clickBtn) {
+  clickBtn.addEventListener('click', () => {
+    const countEl = document.getElementById('clickCount');
+    let cnt = parseInt(countEl.textContent, 10) || 0;
+    cnt++;
+    countEl.textContent = cnt;
+    sendNTFY('Click', `Clicked ${cnt} times`);
+  });
+}
+// Calculator
+const calcBtn = document.getElementById('calcEval');
+if (calcBtn) {
+  calcBtn.addEventListener('click', () => {
+    const expr = document.getElementById('calcInput').value;
+    try {
+      // eslint-disable-next-line no-eval
+      const result = eval(expr);
+      document.getElementById('calcResult').textContent = `= ${result}`;
+      sendNTFY('Calculator', `${expr} = ${result}`);
+    } catch (e) {
+      document.getElementById('calcResult').textContent = 'Error';
+    }
+  });
+}
+
+
 (() => {
-  const rewards = ['Common', 'Rare', 'Beast', 'Ancient'];
+  const rewards = ['Common', 'Rare', 'Beast', 'Ancient', 'Super Epic'];
   const weights = [0.6, 0.25, 0.1, 0.05];
   const historyKey = 'gachaHistory';
   const openBtn = document.getElementById('openGacha');
