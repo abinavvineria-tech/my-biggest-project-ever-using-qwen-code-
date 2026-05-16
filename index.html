@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Huntrix OS Ultra</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="sidebar">
+    <h2>Huntrix OS</h2>
+    <nav>
+      <ul>
+        <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#crk" class="nav-link">CRK Tracker</a></li>
+        <li><a href="#gacha" class="nav-link">Gacha</a></li>
+        <li><a href="#tools" class="nav-link">Tools Hub</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="main">
+    <section id="home" class="section">
+      <h1>🔥 Huntrix OS Ultra</h1>
+      <div class="buttons">
+        <button class="neon-btn" data-target="crk">CRK Tracker</button>
+        <button class="neon-btn" data-target="gacha">Gacha System</button>
+        <button class="neon-btn" data-target="tools">Tools Hub</button>
+      </div>
+    </section>
+
+
+    <section id="crk" class="section">
+      <h2>CRK Tracker</h2>
+      <input id="usernameInput" class="neon-btn" placeholder="Enter username" style="margin-bottom:8px;" />
+      <button id="loginBtn" class="neon-btn">Login to CRK</button>
+      <p>Current Streak (you): <span id="streak">0</span> days</p>
+      <p>Total Days (all users): <span id="totalDays">0</span></p>
+      <button id="crkGameBtn" class="neon-btn">Play CRK Game</button>
+      <p>Game Score: <span id="crkGameScore">0</span></p>
+      <p>Last CRK Event: <span id="lastEvent">None</span></p>
+      <ul id="userList"></ul>
+    </section>
+
+    <section id="gacha" class="section">
+      <h2>Gacha System</h2>
+      <button id="openGacha" class="neon-btn">Open Gacha</button>
+      <p>Last Reward: <span id="lastReward">None</span></p>
+      <ul id="gachaHistory"></ul>
+      <h3>Rarity Rates</h3>
+      <ul>
+        <li>Common &amp; Rare: Very high rates (Common ≈ 33&#37;, Rare ≈ 15‑20&#37;)</li>
+        <li>Beast: The lowest base pull rates (≈ 0.05&#37;‑0.06&#37; depending on active event banners)</li>
+        <li>Ancient: Approximately 0.047&#37; for base units, 0.037&#37; for Awakened forms</li>
+      </ul>
+    </section>
+
+    <section id="tools" class="section">
+      <h2>Tools Hub</h2>
+      <div class="tool" id="timerTool">
+        <h3>Timer</h3>
+        <input type="number" id="timerInput" placeholder="seconds" min="1" />
+        <button id="startTimer" class="neon-btn">Start</button>
+        <p id="timerDisplay"></p>
+      </div>
+      <div class="tool" id="notesTool">
+        <h3>Notes</h3>
+        <textarea id="notesArea" rows="4" placeholder="Write notes..."></textarea>
+      </div>
+      <div class="tool" id="clickTool">
+        <h3>Click Counter</h3>
+        <button id="clickBtn" class="neon-btn">Click</button>
+        <p>Count: <span id="clickCount">0</span></p>
+      </div>
+      <div class="tool" id="calcTool">
+        <h3>Calculator</h3>
+        <input type="text" id="calcInput" placeholder="e.g., 2+2*3" />
+        <button id="calcEval" class="neon-btn">=</button>
+        <span id="calcResult"></span>
+      </div>
+      <div class="tool" id="geometryDashLaunchTool">
+        <h3>Geometry Dash</h3>
+        <a href="intent://#Intent;action=android.intent.action.VIEW;package=com.robtopx.geometryjump;scheme=app;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.robtopx.geometryjump;end" class="neon-btn">Open Geometry Dash</a>
+      </div>
+    <div class="tool" id="crkLaunchTool">
+        <h3>CookieRun: Kingdom</h3>
+        <a href="intent://#Intent;action=android.intent.action.VIEW;package=com.devsisters.ck;scheme=app;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%apps%2Fdetails%3Fid%3Dcom.devsisters.ck;end" class="neon-btn">Open CRK</a>
+      </div>
+    </section>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
