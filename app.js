@@ -9,6 +9,22 @@ function sendNTFY(title, message) {
 
 // Navigation handling
 document.querySelectorAll('.nav-link').forEach(link => {
+  // Sidebar launch links for external apps
+  if (link.id === 'openCRKSidebar') {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      window.location.href = 'intent://#Intent;action=android.intent.action.VIEW;package=com.devsisters.ck;scheme=app;end';
+    });
+    return;
+  }
+  if (link.id === 'openGeoDashSidebar') {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      window.location.href = 'intent://#Intent;action=android.intent.action.VIEW;package=com.robtopx.geometryjump;scheme=app;end';
+    });
+    return;
+  }
+
   link.addEventListener('click', e => {
     e.preventDefault();
     const target = link.dataset.target || link.getAttribute('href').substring(1);
