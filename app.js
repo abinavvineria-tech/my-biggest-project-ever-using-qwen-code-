@@ -34,6 +34,38 @@ document.querySelectorAll('.nav-link').forEach(link => {
     link.classList.add('active');
   });
 });
+// Ensure a default active section on page load (CRK Tracker)
+if (!document.querySelector('.section.active')) {
+  const defaultSec = document.getElementById('crk');
+  if (defaultSec) defaultSec.classList.add('active');
+  const crkNav = document.querySelector('.nav-link[href="#crk"]');
+  if (crkNav) crkNav.classList.add('active');
+}
+  // Sidebar launch links for external apps
+  if (link.id === 'openCRKSidebar') {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      window.location.href = 'intent://#Intent;action=android.intent.action.VIEW;package=com.devsisters.ck;scheme=app;end';
+    });
+    return;
+  }
+  if (link.id === 'openGeoDashSidebar') {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      window.location.href = 'intent://#Intent;action=android.intent.action.VIEW;package=com.robtopx.geometryjump;scheme=app;end';
+    });
+    return;
+  }
+
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const target = link.dataset.target || link.getAttribute('href').substring(1);
+    document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+    document.getElementById(target).classList.add('active');
+    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+    link.classList.add('active');
+  });
+});
 
 // Geometry Dash mini‑game
 // (already initialized earlier)
