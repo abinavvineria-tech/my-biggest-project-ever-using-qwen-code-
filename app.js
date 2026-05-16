@@ -7,64 +7,46 @@ function sendNTFY(title, message) {
   }).catch(() => {});
 }
 
-// Navigation handling
-document.querySelectorAll('.nav-link').forEach(link => {
-  // Sidebar launch links for external apps
-  if (link.id === 'openCRKSidebar') {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      window.location.href = 'intent://#Intent;action=android.intent.action.VIEW;package=com.devsisters.ck;scheme=app;end';
-    });
-    return;
-  }
-  if (link.id === 'openGeoDashSidebar') {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      window.location.href = 'intent://#Intent;action=android.intent.action.VIEW;package=com.robtopx.geometryjump;scheme=app;end';
-    });
-    return;
-  }
+window.addEventListener('DOMContentLoaded', () => {
+  try {
+    // Navigation handling
+    document.querySelectorAll('.nav-link').forEach(link => {
+      // Sidebar launch links for external apps
+      if (link.id === 'openCRKSidebar') {
+        link.addEventListener('click', e => {
+          e.preventDefault();
+          window.location.href = 'intent://#Intent;action=android.intent.action.VIEW;package=com.devsisters.ck;scheme=app;end';
+        });
+        return;
+      }
+      if (link.id === 'openGeoDashSidebar') {
+        link.addEventListener('click', e => {
+          e.preventDefault();
+          window.location.href = 'intent://#Intent;action=android.intent.action.VIEW;package=com.robtopx.geometryjump;scheme=app;end';
+        });
+        return;
+      }
 
-  link.addEventListener('click', e => {
-    e.preventDefault();
-    const target = link.dataset.target || link.getAttribute('href').substring(1);
-    document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
-    document.getElementById(target).classList.add('active');
-    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-    link.classList.add('active');
-  });
-});
-// Ensure a default active section on page load (CRK Tracker)
-if (!document.querySelector('.section.active')) {
-  const defaultSec = document.getElementById('crk');
-  if (defaultSec) defaultSec.classList.add('active');
-  const crkNav = document.querySelector('.nav-link[href="#crk"]');
-  if (crkNav) crkNav.classList.add('active');
-}
-  // Sidebar launch links for external apps
-  if (link.id === 'openCRKSidebar') {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      window.location.href = 'intent://#Intent;action=android.intent.action.VIEW;package=com.devsisters.ck;scheme=app;end';
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const target = link.dataset.target || link.getAttribute('href').substring(1);
+        document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+        document.getElementById(target).classList.add('active');
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+      });
     });
-    return;
+    // Ensure a default active section on page load (CRK Tracker)
+    if (!document.querySelector('.section.active')) {
+      const defaultSec = document.getElementById('crk');
+      if (defaultSec) defaultSec.classList.add('active');
+      const crkNav = document.querySelector('.nav-link[href="#crk"]');
+      if (crkNav) crkNav.classList.add('active');
+    }
+  } catch (err) {
+    console.error('App initialization error:', err);
+    document.body.innerHTML = '<h1>App failed to load. Check console.</h1>';
   }
-  if (link.id === 'openGeoDashSidebar') {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      window.location.href = 'intent://#Intent;action=android.intent.action.VIEW;package=com.robtopx.geometryjump;scheme=app;end';
-    });
-    return;
-  }
-
-  link.addEventListener('click', e => {
-    e.preventDefault();
-    const target = link.dataset.target || link.getAttribute('href').substring(1);
-    document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
-    document.getElementById(target).classList.add('active');
-    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-    link.classList.add('active');
-  });
 });
 
 // Geometry Dash mini‑game
@@ -212,105 +194,7 @@ if (!document.querySelector('.section.active')) {
 })();
 
 // Gacha system
-// Ensure button clicks are logged for debugging
-// Add listeners for Tools Hub buttons
-// Timer
-const startBtn = document.getElementById('startTimer');
-if (startBtn) {
-  startBtn.addEventListener('click', () => {
-    const seconds = parseInt(document.getElementById('timerInput').value, 10);
-    if (isNaN(seconds) || seconds <= 0) return;
-    const display = document.getElementById('timerDisplay');
-    let remaining = seconds;
-    display.textContent = `${remaining}s`;
-    const interval = setInterval(() => {
-      remaining--;
-      if (remaining <= 0) {
-        clearInterval(interval);
-        display.textContent = 'Done!';
-        sendNTFY('Timer', 'Timer finished');
-      } else {
-        display.textContent = `${remaining}s`;
-      }
-    }, 1000);
-  });
-}
-// Click Counter
-const clickBtn = document.getElementById('clickBtn');
-if (clickBtn) {
-  clickBtn.addEventListener('click', () => {
-    const countEl = document.getElementById('clickCount');
-    let cnt = parseInt(countEl.textContent, 10) || 0;
-    cnt++;
-    countEl.textContent = cnt;
-    sendNTFY('Click', `Clicked ${cnt} times`);
-  });
-}
-// Calculator
-const calcBtn = document.getElementById('calcEval');
-if (calcBtn) {
-  calcBtn.addEventListener('click', () => {
-    const expr = document.getElementById('calcInput').value;
-    try {
-      // eslint-disable-next-line no-eval
-      const result = eval(expr);
-      document.getElementById('calcResult').textContent = `= ${result}`;
-      sendNTFY('Calculator', `${expr} = ${result}`);
-    } catch (e) {
-      document.getElementById('calcResult').textContent = 'Error';
-    }
-  });
-}
 
-// Ensure button clicks are logged for debugging
-// Add listeners for Tools Hub buttons
-// Timer
-const startBtn = document.getElementById('startTimer');
-if (startBtn) {
-  startBtn.addEventListener('click', () => {
-    const seconds = parseInt(document.getElementById('timerInput').value, 10);
-    if (isNaN(seconds) || seconds <= 0) return;
-    const display = document.getElementById('timerDisplay');
-    let remaining = seconds;
-    display.textContent = `${remaining}s`;
-    const interval = setInterval(() => {
-      remaining--;
-      if (remaining <= 0) {
-        clearInterval(interval);
-        display.textContent = 'Done!';
-        sendNTFY('Timer', 'Timer finished');
-      } else {
-        display.textContent = `${remaining}s`;
-      }
-    }, 1000);
-  });
-}
-// Click Counter
-const clickBtn = document.getElementById('clickBtn');
-if (clickBtn) {
-  clickBtn.addEventListener('click', () => {
-    const countEl = document.getElementById('clickCount');
-    let cnt = parseInt(countEl.textContent, 10) || 0;
-    cnt++;
-    countEl.textContent = cnt;
-    sendNTFY('Click', `Clicked ${cnt} times`);
-  });
-}
-// Calculator
-const calcBtn = document.getElementById('calcEval');
-if (calcBtn) {
-  calcBtn.addEventListener('click', () => {
-    const expr = document.getElementById('calcInput').value;
-    try {
-      // eslint-disable-next-line no-eval
-      const result = eval(expr);
-      document.getElementById('calcResult').textContent = `= ${result}`;
-      sendNTFY('Calculator', `${expr} = ${result}`);
-    } catch (e) {
-      document.getElementById('calcResult').textContent = 'Error';
-    }
-  });
-}
 
 
 (() => {
